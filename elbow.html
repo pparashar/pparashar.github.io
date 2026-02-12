@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>15-Min Morning Joint Strength</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --bg:#08080a;--card:#111114;--card2:#18181c;
+    --accent:#ff6b35;--accent2:#ff8c5a;--accentG:rgba(255,107,53,.12);
+    --green:#22c55e;--greenG:rgba(34,197,94,.12);
+    --blue:#3b82f6;--blueG:rgba(59,130,246,.12);
+    --purple:#a855f7;--text:#f0f0f0;--dim:#777;--muted:#555;--border:#1e1e22;
+  }
+  body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  .app{max-width:560px;margin:0 auto;padding:16px 16px 120px}
+
+  /* HEADER */
+  .header{text-align:center;padding:28px 0 20px}
+  .header h1{font-size:24px;font-weight:800;letter-spacing:-.8px;background:linear-gradient(135deg,#fff,#bbb);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px}
+  .header .sub{font-size:13px;color:var(--dim)}
+  .badges{display:flex;justify-content:center;gap:8px;margin-top:12px;flex-wrap:wrap}
+  .bg{padding:5px 12px;border-radius:20px;font-size:11px;font-weight:600;border:1px solid}
+  .bg-o{background:var(--accentG);color:var(--accent);border-color:rgba(255,107,53,.2)}
+  .bg-g{background:var(--greenG);color:var(--green);border-color:rgba(34,197,94,.2)}
+  .bg-b{background:var(--blueG);color:var(--blue);border-color:rgba(59,130,246,.2)}
+
+  /* PROGRESS */
+  .prog{margin:16px 0;background:var(--card);border-radius:14px;padding:14px 16px;border:1px solid var(--border)}
+  .prog-top{display:flex;justify-content:space-between;font-size:12px;color:var(--dim);margin-bottom:8px;font-weight:500}
+  .prog-bar{height:5px;background:#1a1a1e;border-radius:5px;overflow:hidden}
+  .prog-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:5px;transition:width .5s;width:0}
+
+  /* SECTIONS */
+  .sec{display:flex;align-items:center;gap:10px;margin:24px 0 12px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px}
+  .sec-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+  .sec-line{flex:1;height:1px;background:var(--border)}
+  .sec-t{color:var(--muted);font-weight:500}
+
+  /* CARDS */
+  .card{background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:10px;overflow:hidden;transition:all .3s cubic-bezier(.4,0,.2,1)}
+  .card:hover{background:var(--card2)}
+  .card.active{border-color:var(--accent);box-shadow:0 0 30px var(--accentG)}
+  .card.active .cnum{background:var(--accent);color:#fff}
+  .card.done{opacity:.4}
+  .card.done .cnum{background:var(--green);color:#fff}
+  .card-hd{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;cursor:pointer}
+  .cnum{width:28px;height:28px;border-radius:8px;background:#1e1e24;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--dim);flex-shrink:0;transition:all .3s}
+  .card-bd{flex:1;min-width:0}
+  .card-tr{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px}
+  .cname{font-size:14px;font-weight:600;line-height:1.3}
+  .ctime{font-size:11px;font-weight:700;white-space:nowrap;padding:2px 8px;border-radius:6px;background:rgba(255,255,255,.05);margin-left:8px;flex-shrink:0}
+  .t-o{color:var(--accent)}.t-g{color:var(--green)}.t-b{color:var(--blue)}
+  .cmeta{font-size:12px;color:var(--dim);line-height:1.4}
+  .creps{font-size:11px;font-weight:600;margin-top:4px;display:inline-block}
+  .r-o{color:var(--accent2)}.r-g{color:#4ade80}.r-b{color:#60a5fa}
+
+  /* EXPAND */
+  .card-ex{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1)}
+  .card.expanded .card-ex{max-height:800px}
+  .card-inner{padding:0 16px 16px 56px}
+
+  /* TOGGLE VIDEO/ANIM */
+  .toggle-row{display:flex;gap:6px;margin-bottom:10px}
+  .toggle-btn{flex:1;padding:8px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid var(--border);background:transparent;color:var(--dim);cursor:pointer;font-family:inherit;transition:all .2s}
+  .toggle-btn.sel{background:rgba(255,255,255,.06);color:var(--text);border-color:#333}
+
+  /* VIDEO */
+  .vid-wrap{position:relative;width:100%;padding-bottom:56.25%;border-radius:10px;overflow:hidden;background:#0a0a0c;margin-bottom:10px;display:none}
+  .vid-wrap.show{display:block}
+  .vid-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+  
+  /* ANIMATION CONTAINER */
+  .anim-wrap{width:100%;height:160px;border-radius:10px;background:linear-gradient(145deg,#0e0e12,#151518);margin-bottom:10px;display:none;position:relative;overflow:hidden}
+  .anim-wrap.show{display:flex;align-items:center;justify-content:center}
+  .anim-label{position:absolute;bottom:6px;left:0;right:0;text-align:center;font-size:10px;color:var(--muted);letter-spacing:.5px}
+
+  /* ===== SVG ANIMATIONS ===== */
+  /* Wrist Extension Stretch */
+  .anim-wrist-ext svg .hand{animation:wristDown 2.5s ease-in-out infinite}
+  @keyframes wristDown{0%,100%{transform:rotate(0deg)}50%{transform:rotate(-35deg)}}
+  
+  /* Wrist Flexor Stretch */
+  .anim-wrist-flex svg .hand{animation:wristUp 2.5s ease-in-out infinite}
+  @keyframes wristUp{0%,100%{transform:rotate(0deg)}50%{transform:rotate(35deg)}}
+  
+  /* Isometric Hold */
+  .anim-iso .glow{animation:isoPulse 1.5s ease-in-out infinite}
+  @keyframes isoPulse{0%,100%{opacity:.3;r:12}50%{opacity:.8;r:18}}
+  
+  /* Eccentric */
+  .anim-ecc svg .weight{animation:eccLower 3s ease-in-out infinite}
+  @keyframes eccLower{0%,10%{transform:rotate(-20deg)}50%,60%{transform:rotate(25deg)}100%{transform:rotate(-20deg)}}
+  
+  /* Supination */
+  .anim-sup svg .forearm-g{animation:supRot 3s ease-in-out infinite;transform-origin:center}
+  @keyframes supRot{0%,100%{transform:scaleX(1)}50%{transform:scaleX(-1)}}
+  
+  /* Finger Spread */
+  .anim-finger .f1{animation:fSpread 2s ease-in-out infinite}
+  .anim-finger .f2{animation:fSpread 2s ease-in-out .1s infinite}
+  .anim-finger .f3{animation:fSpread 2s ease-in-out .2s infinite}
+  .anim-finger .f4{animation:fSpread 2s ease-in-out .15s infinite}
+  .anim-finger .f5{animation:fSpread 2s ease-in-out .05s infinite}
+  @keyframes fSpread{0%,100%{transform:translate(0,0)}50%{transform:var(--spread)}}
+  
+  /* Wall Sit */
+  .anim-wall .body{animation:wallPulse 2.5s ease-in-out infinite}
+  @keyframes wallPulse{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+  
+  /* Glute Bridge */
+  .anim-bridge .hips{animation:bridgeUp 2.5s ease-in-out infinite}
+  @keyframes bridgeUp{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+  
+  /* Straight Leg Raise */
+  .anim-slr .leg{animation:legUp 3s ease-in-out infinite;transform-origin:left center}
+  @keyframes legUp{0%,100%{transform:rotate(0)}50%{transform:rotate(-20deg)}}
+  
+  /* Ankle Circle */
+  .anim-ankle .foot{animation:ankleCirc 2s linear infinite;transform-origin:center}
+  @keyframes ankleCirc{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+  
+  /* Single Leg Balance */
+  .anim-balance .person{animation:sway 2.5s ease-in-out infinite;transform-origin:bottom center}
+  @keyframes sway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+  
+  /* Calf Raise */
+  .anim-calf .body{animation:calfUp 2s ease-in-out infinite}
+  @keyframes calfUp{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+
+  .detail-text{font-size:13px;color:#aaa;line-height:1.7;margin-bottom:10px}
+  .equip{display:inline-block;padding:3px 10px;background:rgba(168,85,247,.1);color:var(--purple);border-radius:6px;font-size:11px;font-weight:600;margin-top:4px}
+
+  /* TIMER OVERLAY */
+  .timer-ov{display:none;position:fixed;inset:0;background:rgba(4,4,6,.97);z-index:200;flex-direction:column;align-items:center;padding:20px 16px;overflow-y:auto;backdrop-filter:blur(20px)}
+  .timer-ov.show{display:flex;animation:fadeIn .3s}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .t-bar{width:100%;max-width:480px;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+  .t-cnt{font-size:12px;color:var(--dim);font-weight:600}
+  .t-close{width:32px;height:32px;border-radius:50%;background:#1a1a1e;border:1px solid var(--border);color:var(--dim);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+  .t-sec{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;font-weight:600;margin-bottom:2px}
+  .t-name{font-size:20px;font-weight:800;text-align:center;margin-bottom:2px;letter-spacing:-.5px}
+  .t-reps{font-size:13px;color:var(--accent2);font-weight:600;margin-bottom:12px}
+
+  .t-circle{position:relative;width:170px;height:170px;margin-bottom:12px}
+  .t-circle svg{transform:rotate(-90deg);width:170px;height:170px;filter:drop-shadow(0 0 12px var(--accentG))}
+  .tc-bg{stroke:#1a1a1e}.tc-fg{stroke:var(--accent);stroke-linecap:round;transition:stroke-dashoffset .3s linear}
+  .t-time{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .t-time-num{font-size:42px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-1px}
+  .t-time-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+
+  /* Timer media area */
+  .t-media{width:100%;max-width:440px;margin-bottom:10px}
+  .t-media-toggle{display:flex;gap:6px;margin-bottom:8px;justify-content:center}
+  .t-media-btn{padding:6px 16px;border-radius:8px;font-size:11px;font-weight:600;border:1px solid var(--border);background:transparent;color:var(--dim);cursor:pointer;font-family:inherit;transition:all .2s}
+  .t-media-btn.sel{background:rgba(255,255,255,.07);color:var(--text);border-color:#333}
+  .t-vid{position:relative;width:100%;padding-bottom:56.25%;border-radius:10px;overflow:hidden;background:#0a0a0c;display:none}
+  .t-vid.show{display:block}
+  .t-vid iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+  .t-anim{width:100%;height:140px;border-radius:10px;background:linear-gradient(145deg,#0e0e12,#151518);display:none;align-items:center;justify-content:center;position:relative;overflow:hidden}
+  .t-anim.show{display:flex}
+
+  .t-inst{text-align:center;font-size:12px;color:#888;max-width:400px;line-height:1.6;margin-bottom:14px;padding:0 8px}
+  .t-ctrls{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+  .tbtn{padding:12px 24px;border-radius:12px;font-size:14px;font-weight:600;border:none;cursor:pointer;font-family:inherit;transition:all .15s;letter-spacing:.2px}
+  .tbtn:active{transform:scale(.96)}
+  .tbtn-p{background:linear-gradient(135deg,var(--accent),#e0522a);color:#fff;min-width:120px;box-shadow:0 4px 15px var(--accentG)}
+  .tbtn-s{background:#1e1e24;color:var(--text);border:1px solid var(--border)}
+  .tbtn-sk{background:transparent;color:var(--muted);border:1px solid #2a2a2e}
+
+  /* TRANSITION */
+  .trans{display:none;position:fixed;inset:0;background:rgba(4,4,6,.98);z-index:300;flex-direction:column;align-items:center;justify-content:center}
+  .trans.show{display:flex;animation:fadeIn .2s}
+  .trans-lbl{font-size:13px;color:var(--dim);text-transform:uppercase;letter-spacing:2px;font-weight:600;margin-bottom:8px}
+  .trans-name{font-size:24px;font-weight:800;text-align:center;margin-bottom:4px}
+  .trans-reps{font-size:14px;color:var(--dim);margin-bottom:16px}
+  .trans-cd{font-size:72px;font-weight:900;color:var(--accent);font-variant-numeric:tabular-nums}
+
+  /* START */
+  .start-c{position:fixed;bottom:0;left:0;right:0;padding:16px;background:linear-gradient(transparent,var(--bg) 40%);display:flex;justify-content:center;z-index:50}
+  .start-btn{width:100%;max-width:560px;padding:16px;background:linear-gradient(135deg,var(--accent),#e0522a);color:#fff;border:none;border-radius:14px;font-size:16px;font-weight:700;font-family:inherit;cursor:pointer;box-shadow:0 6px 25px var(--accentG);transition:all .15s}
+  .start-btn:active{transform:scale(.98)}
+
+  .disc{margin-top:20px;padding:14px;background:rgba(255,107,53,.04);border:1px solid rgba(255,107,53,.1);border-radius:14px;font-size:11px;color:var(--muted);line-height:1.6}
+  .src{margin-top:10px;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:14px;font-size:11px;color:var(--muted);line-height:1.6}
+  .src a{color:var(--accent)}
+
+  @media(max-width:420px){
+    .t-circle{width:140px;height:140px}
+    .t-circle svg{width:140px;height:140px}
+    .t-time-num{font-size:34px}
+    .t-name{font-size:17px}
+  }
+</style>
+</head>
+<body>
+
+<div class="app" id="app">
+  <div class="header">
+    <div style="font-size:32px;margin-bottom:8px;animation:pulse 2s ease-in-out infinite">🏋️‍♂️</div>
+    <h1>Morning Joint Strength</h1>
+    <p class="sub">Knees · Ankles · Elbows — Daily 15-Min Routine</p>
+    <div class="badges">
+      <span class="bg bg-o">💪 ELBOW REHAB</span>
+      <span class="bg bg-g">🦵 KNEE STABILITY</span>
+      <span class="bg bg-b">🦶 ANKLE MOBILITY</span>
+    </div>
+  </div>
+  <style>@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}</style>
+  
+  <div class="prog">
+    <div class="prog-top">
+      <span id="pText">Tap any exercise to expand</span>
+      <span id="pTime">0:00 / 15:00</span>
+    </div>
+    <div class="prog-bar"><div class="prog-fill" id="pFill"></div></div>
+  </div>
+  
+  <div id="exContainer"></div>
+  
+  <div class="disc">⚠️ <strong>Important:</strong> Stay within pain-free range (max 3/10 discomfort). If you have acute swelling, wait for it to subside. Consult a physiotherapist if pain persists beyond 6 weeks.</div>
+  <div class="src"><strong>Sources:</strong> AAOS, NHS, Cleveland Clinic, Prehab Guys + your curated videos. Elbow exercises prioritized from <a href="https://www.youtube.com/watch?v=tTt9kb-zazE" target="_blank">your preferred video</a>.</div>
+</div>
+
+<div class="start-c"><button class="start-btn" id="startBtn" onclick="startRoutine()">▶ &nbsp;Start 15-Min Routine</button></div>
+
+<!-- TIMER -->
+<div class="timer-ov" id="timerOv">
+  <div class="t-bar">
+    <span class="t-cnt" id="tCnt">1/12</span>
+    <button class="t-close" onclick="closeTimer()">✕</button>
+  </div>
+  <div class="t-sec" id="tSec"></div>
+  <div class="t-name" id="tName"></div>
+  <div class="t-reps" id="tReps"></div>
+  <div class="t-circle">
+    <svg viewBox="0 0 170 170">
+      <circle class="tc-bg" cx="85" cy="85" r="75" fill="none" stroke-width="5"/>
+      <circle class="tc-fg" id="tArc" cx="85" cy="85" r="75" fill="none" stroke-width="5" stroke-dasharray="471.24" stroke-dashoffset="0"/>
+    </svg>
+    <div class="t-time">
+      <div class="t-time-num" id="tTimeNum">0:00</div>
+      <div class="t-time-lbl">remaining</div>
+    </div>
+  </div>
+  <div class="t-media" id="tMedia">
+    <div class="t-media-toggle">
+      <button class="t-media-btn sel" id="tBtnAnim" onclick="setTimerMedia('anim')">🎬 Animation</button>
+      <button class="t-media-btn" id="tBtnVid" onclick="setTimerMedia('vid')">▶ YouTube Video</button>
+    </div>
+    <div class="t-vid" id="tVid"></div>
+    <div class="t-anim show" id="tAnim"></div>
+  </div>
+  <div class="t-inst" id="tInst"></div>
+  <div class="t-ctrls">
+    <button class="tbtn tbtn-sk" onclick="skipEx()">⏭ Skip</button>
+    <button class="tbtn tbtn-p" id="tPlayBtn" onclick="toggleTimer()">⏸ Pause</button>
+    <button class="tbtn tbtn-s" onclick="nextEx()">Next →</button>
+  </div>
+</div>
+
+<!-- TRANSITION -->
+<div class="trans" id="transOv">
+  <div class="trans-lbl">NEXT UP</div>
+  <div class="trans-name" id="trName"></div>
+  <div class="trans-reps" id="trReps"></div>
+  <div class="trans-cd" id="trCd">3</div>
+</div>
+
+<script>
+const CIRC=2*Math.PI*75;
+
+// ═══ ANIMATION SVGs ═══
+const ANIMS = {
+  wristExt: `<svg viewBox="0 0 240 140" width="220">
+    <line x1="30" y1="70" x2="120" y2="70" stroke="#444" stroke-width="6" stroke-linecap="round"/>
+    <g class="hand" style="transform-origin:120px 70px">
+      <line x1="120" y1="70" x2="180" y2="70" stroke="${'var(--accent)'}" stroke-width="5" stroke-linecap="round"/>
+      <line x1="180" y1="70" x2="195" y2="62" stroke="${'var(--accent2)'}" stroke-width="3" stroke-linecap="round"/>
+      <line x1="180" y1="70" x2="198" y2="66" stroke="${'var(--accent2)'}" stroke-width="3" stroke-linecap="round"/>
+      <line x1="180" y1="70" x2="198" y2="74" stroke="${'var(--accent2)'}" stroke-width="3" stroke-linecap="round"/>
+      <line x1="180" y1="70" x2="195" y2="78" stroke="${'var(--accent2)'}" stroke-width="3" stroke-linecap="round"/>
+    </g>
+    <g opacity=".4"><line x1="150" y1="44" x2="150" y2="30" stroke="#ff6b35" stroke-width="2"/><polygon points="145,32 155,32 150,24" fill="#ff6b35"/></g>
+    <text x="120" y="110" text-anchor="middle" fill="#555" font-size="11" font-family="Inter">Pull fingers down · Hold 30s</text>
+  </svg>`,
+
+  wristFlex: `<svg viewBox="0 0 240 140" width="220">
+    <line x1="30" y1="70" x2="120" y2="70" stroke="#444" stroke-width="6" stroke-linecap="round"/>
+    <g class="hand" style="transform-origin:120px 70px">
+      <line x1="120" y1="70" x2="180" y2="70" stroke="${'var(--green)'}" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="182" cy="70" r="6" fill="none" stroke="${'var(--green)'}" stroke-width="2"/>
+    </g>
+    <g opacity=".4"><line x1="150" y1="96" x2="150" y2="110" stroke="#22c55e" stroke-width="2"/><polygon points="145,108 155,108 150,116" fill="#22c55e"/></g>
+    <text x="120" y="130" text-anchor="middle" fill="#555" font-size="11" font-family="Inter">Palm up · Pull fingers down · 30s</text>
+  </svg>`,
+
+  iso: `<svg viewBox="0 0 240 140" width="220">
+    <line x1="30" y1="75" x2="120" y2="75" stroke="#444" stroke-width="6" stroke-linecap="round"/>
+    <line x1="120" y1="75" x2="185" y2="75" stroke="var(--accent)" stroke-width="5" stroke-linecap="round"/>
+    <rect x="115" y="55" width="75" height="6" rx="3" fill="none" stroke="#555" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <circle class="glow" cx="152" cy="75" r="12" fill="var(--accent)" opacity=".3"/>
+    <g opacity=".5">
+      <line x1="152" y1="56" x2="152" y2="44" stroke="var(--accent)" stroke-width="2"/>
+      <polygon points="147,46 157,46 152,38" fill="var(--accent)"/>
+      <line x1="152" y1="94" x2="152" y2="106" stroke="#888" stroke-width="2"/>
+      <polygon points="147,104 157,104 152,112" fill="#888"/>
+    </g>
+    <text x="120" y="130" text-anchor="middle" fill="#555" font-size="11" font-family="Inter">Push up vs resistance · No movement</text>
+  </svg>`,
+
+  eccentric: `<svg viewBox="0 0 240 140" width="220">
+    <rect x="25" y="60" width="95" height="8" rx="4" fill="#333"/>
+    <line x1="120" y1="64" x2="120" y2="30" stroke="#444" stroke-width="5" stroke-linecap="round"/>
+    <g class="weight" style="transform-origin:120px 64px">
+      <line x1="120" y1="64" x2="180" y2="64" stroke="var(--accent)" stroke-width="5" stroke-linecap="round"/>
+      <rect x="172" y="54" width="16" height="20" rx="3" fill="var(--accent)" opacity=".6"/>
+    </g>
+    <g opacity=".4">
+      <path d="M190 80 Q195 95 185 105" fill="none" stroke="var(--accent)" stroke-width="2"/>
+      <polygon points="182,102 188,108 190,99" fill="var(--accent)"/>
+    </g>
+    <text x="120" y="130" text-anchor="middle" fill="#555" font-size="11" font-family="Inter">Lift with help · Slow 5s lower</text>
+  </svg>`,
+
+  supination: `<svg viewBox="0 0 240 140" width="220">
+    <line x1="60" y1="70" x2="120" y2="70" stroke="#444" stroke-width="6" stroke-linecap="round"/>
+    <g class="forearm-g">
+      <rect x="120" y="58" width="60" height="6" rx="3" fill="var(--accent)"/>
+      <rect x="120" y="76" width="60" height="6" rx="3" fill="var(--accent)" opacity=".4"/>
+      <rect x="175" y="50" width="8" height="40" rx="3" fill="#666"/>
+    </g>
+    <path d="M195 55 A20 20 0 0 1 195 85" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="3,3" opacity=".5"/>
+    <text x="120" y="125" text-anchor="middle" fill="#555" font-size="11" font-family="Inter">Rotate palm up ↔ down slowly</text>
+  </svg>`,
+
+  fingerSpread: `<svg viewBox="0 0 200 140" width="200">
+    <circle cx="100" cy="80" r="20" fill="none" stroke="#333" stroke-width="2"/>
+    <line class="f1" style="--spread:-12px,-14px" x1="100" y1="80" x2="82" y2="50" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/>
+    <line class="f2" style="--spread:-6px,-16px" x1="100" y1="80" x2="92" y2="44" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/>
+    <line class="f3" style="--spread:0,-16px" x1="100" y1="80" x2="100" y2="42" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/>
+    <line class="f4" style="--spread:6px,-14px" x1="100" y1="80" x2="110" y2="46" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/>
+    <line class="f5" style="--spread:10px,-6px" x1="100" y1="80" x2="120" y2="58" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/>
+    <ellipse cx="100" cy="82" rx="14" ry="10" fill="none" stroke="var(--accent)" stroke-width="2" opacity=".3"/>
+    <circle cx="100" cy="80" r="30" fill="none" stroke="var(--accent)" stroke-width="1" stroke-dasharray="3,4" class="f1" style="--spread:0,0;animation:rubber 2s ease-in-out infinite"/>
+    <text x="100" y="128" text-anchor="middle" fill="#555" font-size="11" font-family="Inter">Spread fingers against band</text>
+  </svg>
+  <style>.anim-finger circle:last-of-type{animation:rubber 2s ease-in-out infinite!important}@keyframes rubber{0%,100%{r:30;opacity:.3}50%{r:40;opacity:.15}}</style>`,
+
+  wallSit: `<svg viewBox="0 0 200 160" width="180">
+    <rect x="30" y="10" width="8" height="140" rx="2" fill="#333"/>
+    <g class="body">
+      <circle cx="55" cy="35" r="10" fill="var(--green)" opacity=".7"/>
+      <line x1="55" y1="45" x2="55" y2="80" stroke="var(--green)" stroke-width="4" stroke-linecap="round"/>
+      <line x1="55" y1="80" x2="55" y2="110" stroke="var(--green)" stroke-width="4" stroke-linecap="round"/>
+      <line x1="55" y1="110" x2="70" y2="140" stroke="var(--green)" stroke-width="4" stroke-linecap="round"/>
+      <line x1="38" y1="80" x2="38" y2="60" stroke="#555" stroke-width="1" stroke-dasharray="2,2"/>
+    </g>
+    <text x="55" y="155" text-anchor="middle" fill="#555" font-size="10" font-family="Inter">45-60° · Hold 20s</text>
+  </svg>`,
+
+  bridge: `<svg viewBox="0 0 240 120" width="220">
+    <line x1="20" y1="95" x2="220" y2="95" stroke="#222" stroke-width="2"/>
+    <g class="hips">
+      <line x1="60" y1="95" x2="80" y2="70" stroke="var(--green)" stroke-width="4" stroke-linecap="round"/>
+      <line x1="80" y1="70" x2="130" y2="60" stroke="var(--green)" stroke-width="5" stroke-linecap="round"/>
+      <line x1="130" y1="60" x2="160" y2="70" stroke="var(--green)" stroke-width="4" stroke-linecap="round"/>
+      <line x1="160" y1="70" x2="180" y2="95" stroke="var(--green)" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="50" cy="90" r="4" fill="var(--green)" opacity=".5"/>
+    </g>
+    <g opacity=".4"><line x1="120" y1="55" x2="120" y2="35" stroke="var(--green)" stroke-width="2"/><polygon points="115,37 125,37 120,29" fill="var(--green)"/></g>
+    <text x="120" y="115" text-anchor="middle" fill="#555" font-size="11" font-family="Inter">Lift hips · Squeeze · Hold 3s</text>
+  </svg>`,
+
+  slr: `<svg viewBox="0 0 240 120" width="220">
+    <line x1="20" y1="90" x2="220" y2="90" stroke="#222" stroke-width="2"/>
+    <line x1="60" y1="90" x2="100" y2="60" stroke="#555" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="100" cy="55" r="8" fill="#555" opacity=".5"/>
+    <line x1="100" y1="63" x2="100" y2="90" stroke="#555" stroke-width="4" stroke-linecap="round"/>
+    <g class="leg" style="transform-origin:100px 90px">
+      <line x1="100" y1="90" x2="190" y2="90" stroke="var(--green)" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="190" cy="90" r="4" fill="var(--green)" opacity=".6"/>
+    </g>
+    <text x="120" y="115" text-anchor="middle" fill="#555" font-size="11" font-family="Inter">Tighten quad · Lift 6 inches · 5s</text>
+  </svg>`,
+
+  ankleCircle: `<svg viewBox="0 0 200 140" width="180">
+    <line x1="100" y1="20" x2="100" y2="70" stroke="#444" stroke-width="5" stroke-linecap="round"/>
+    <g class="foot" style="transform-origin:100px 70px">
+      <line x1="100" y1="70" x2="100" y2="100" stroke="var(--blue)" stroke-width="4" stroke-linecap="round"/>
+      <line x1="100" y1="100" x2="120" y2="105" stroke="var(--blue)" stroke-width="3" stroke-linecap="round"/>
+    </g>
+    <circle cx="100" cy="70" r="28" fill="none" stroke="var(--blue)" stroke-width="1.5" stroke-dasharray="4,4" opacity=".4"/>
+    <text x="100" y="130" text-anchor="middle" fill="#555" font-size="11" font-family="Inter">Draw alphabet A-Z with toe</text>
+  </svg>`,
+
+  balance: `<svg viewBox="0 0 200 160" width="170">
+    <line x1="20" y1="145" x2="180" y2="145" stroke="#222" stroke-width="2"/>
+    <g class="person" style="transform-origin:100px 145px">
+      <circle cx="100" cy="30" r="10" fill="var(--blue)" opacity=".7"/>
+      <line x1="100" y1="40" x2="100" y2="85" stroke="var(--blue)" stroke-width="4" stroke-linecap="round"/>
+      <line x1="80" y1="60" x2="120" y2="55" stroke="var(--blue)" stroke-width="3" stroke-linecap="round"/>
+      <line x1="100" y1="85" x2="100" y2="145" stroke="var(--blue)" stroke-width="4" stroke-linecap="round"/>
+      <line x1="100" y1="85" x2="115" y2="110" stroke="var(--blue)" stroke-width="3" stroke-linecap="round" opacity=".4" stroke-dasharray="4,3"/>
+    </g>
+    <text x="100" y="158" text-anchor="middle" fill="#555" font-size="10" font-family="Inter">30s each leg · Eyes on fixed point</text>
+  </svg>`,
+
+  calfRaise: `<svg viewBox="0 0 200 160" width="170">
+    <rect x="40" y="120" width="120" height="8" rx="3" fill="#333"/>
+    <g class="body">
+      <circle cx="100" cy="30" r="10" fill="var(--blue)" opacity=".7"/>
+      <line x1="100" y1="40" x2="100" y2="85" stroke="var(--blue)" stroke-width="4" stroke-linecap="round"/>
+      <line x1="100" y1="85" x2="100" y2="120" stroke="var(--blue)" stroke-width="4" stroke-linecap="round"/>
+      <line x1="100" y1="120" x2="110" y2="128" stroke="var(--blue)" stroke-width="3" stroke-linecap="round"/>
+    </g>
+    <g opacity=".4"><line x1="75" y1="50" x2="75" y2="35" stroke="var(--blue)" stroke-width="2"/><polygon points="70,37 80,37 75,29" fill="var(--blue)"/></g>
+    <text x="100" y="152" text-anchor="middle" fill="#555" font-size="10" font-family="Inter">Rise 2s up · Slow 5s down</text>
+  </svg>`
+};
+
+const exercises = [
+  {section:"Elbow Rehab & Strengthening",sc:"#ff6b35",cc:"orange",n:1,name:"Wrist Extensor Stretch",dur:60,reps:"Hold 30s × 2 each arm",meta:"Tennis elbow — Stretches ECRB tendon",detail:"Extend affected arm straight out, palm down. Other hand gently pulls fingers down toward body. Keep elbow straight, shoulder relaxed. Feel gentle stretch on top of forearm. 30s each side, twice.",eq:null,yt:"tTt9kb-zazE",anim:"wristExt",animClass:"anim-wrist-ext"},
+  {section:"Elbow Rehab & Strengthening",sc:"#ff6b35",cc:"orange",n:2,name:"Wrist Flexor Stretch",dur:60,reps:"Hold 30s × 2 each arm",meta:"Golfer's elbow — Inner forearm tendons",detail:"Extend arm palm up. Other hand pulls fingers down toward floor. Keep elbow straight. Feel stretch inside forearm. Essential for golfer's elbow, balances the extensor stretch.",eq:null,yt:"0JQzfmB5cXc",anim:"wristFlex",animClass:"anim-wrist-flex"},
+  {section:"Elbow Rehab & Strengthening",sc:"#ff6b35",cc:"orange",n:3,name:"Isometric Wrist Hold",dur:60,reps:"Push 10s × 6 reps",meta:"Pain-free start — Your priority video",detail:"Forearm on table, wrist off edge, palm down. Other hand on top as resistance. Push up — don't let wrist move. Hold 10s, rest 5s. Zero pain. The safest starting point from your prioritized video.",eq:null,yt:"tTt9kb-zazE",anim:"iso",animClass:"anim-iso"},
+  {section:"Elbow Rehab & Strengthening",sc:"#ff6b35",cc:"orange",n:4,name:"Eccentric Wrist Extension",dur:75,reps:"10 reps × 2 sets each arm",meta:"⭐ Gold standard rehab — Slow lowering",detail:"Forearm on table, palm down, hold light dumbbell (1-2kg). Other hand lifts weight up. Then SLOWLY lower over 5 seconds using only working forearm. Eccentric phase rebuilds the tendon. THE key exercise.",eq:"Light dumbbell (1-2 kg)",yt:"gsKGbqA9aNo",anim:"eccentric",animClass:"anim-ecc"},
+  {section:"Elbow Rehab & Strengthening",sc:"#ff6b35",cc:"orange",n:5,name:"Forearm Supination/Pronation",dur:60,reps:"10 reps × 2 each direction",meta:"Hammer rotation — Supinator muscle",detail:"Hold hammer (weight on one end). Forearm on thigh, thumb up. Slowly rotate palm up (supination) then palm down (pronation). Only forearm moves. Choke up to make easier.",eq:"Hammer or weighted stick",yt:"1yE03YotYA8",anim:"supination",animClass:"anim-sup"},
+  {section:"Elbow Rehab & Strengthening",sc:"#ff6b35",cc:"orange",n:6,name:"Finger Spread with Band",dur:45,reps:"15 reps × 2 sets",meta:"Extensor activation + grip rebalance",detail:"Rubber band around all five fingertips. Spread fingers apart against resistance, hold 2s, slowly return. Strengthens finger and wrist extensors weakened in tennis elbow.",eq:"Rubber band",yt:"pk7bYe6YcVs",anim:"fingerSpread",animClass:"anim-finger"},
+  
+  {section:"Knee Strengthening",sc:"#22c55e",cc:"green",n:7,name:"Wall Sit Hold",dur:60,reps:"20s hold × 3 sets",meta:"Quad & VMO isometric — Patellar stability",detail:"Back against wall, feet shoulder-width, 2ft from wall. Slide to 45-60° bend (not past 90°). Knees over ankles, weight through heels. 20s hold, 10s rest. Strengthens VMO for kneecap tracking.",eq:null,yt:"y-wV4Lz6wJU",anim:"wallSit",animClass:"anim-wall"},
+  {section:"Knee Strengthening",sc:"#22c55e",cc:"green",n:8,name:"Glute Bridge",dur:60,reps:"12 reps × 2 sets",meta:"Glute activation — Reduces knee overload",detail:"Lie on back, knees bent, feet hip-width. Push heels to lift hips. Optional: squeeze ball between knees. Hold top 3s, slowly lower. Weak glutes = #1 hidden cause of knee pain.",eq:"Optional small ball",yt:"OUgsJ8-Vi0E",anim:"bridge",animClass:"anim-bridge"},
+  {section:"Knee Strengthening",sc:"#22c55e",cc:"green",n:9,name:"Straight Leg Raise",dur:60,reps:"10 reps × 2 each leg",meta:"Quad strength without knee stress",detail:"Lie on back. One knee bent, other leg straight. Tighten quad, turn foot slightly out, lift 6 inches. Hold 5s at top, slowly lower. Strengthens quad without loading knee joint.",eq:null,yt:"yTgJi1aV-08",anim:"slr",animClass:"anim-slr"},
+  
+  {section:"Ankle Stability & Mobility",sc:"#3b82f6",cc:"blue",n:10,name:"Ankle Circles / Alphabet",dur:45,reps:"Alphabet A-Z or 10 circles each",meta:"Full range ankle mobility warm-up",detail:"Sit with leg extended. Draw alphabet A-Z with big toe — only ankle moves, not whole leg. Or 10 slow circles each direction per foot. Mobilizes joint, activates stabilizers.",eq:null,yt:"SAz2hICqDOk",anim:"ankleCircle",animClass:"anim-ankle"},
+  {section:"Ankle Stability & Mobility",sc:"#3b82f6",cc:"blue",n:11,name:"Single Leg Balance",dur:60,reps:"30s each leg × 2",meta:"Proprioception — #1 sprain prevention",detail:"Stand on one foot near wall. Slight knee bend, focus on fixed point. Progress: close eyes, stand on cushion, add hip rotations. THE most important ankle stability exercise.",eq:"Optional cushion",yt:"tZJPWjBFEDA",anim:"balance",animClass:"anim-balance"},
+  {section:"Ankle Stability & Mobility",sc:"#3b82f6",cc:"blue",n:12,name:"Eccentric Calf Raise",dur:75,reps:"12 reps × 2 sets",meta:"Achilles + calf strengthening",detail:"Stand at step edge (or flat). Rise on both toes 2s. Shift to one foot, SLOWLY lower 4-5s (eccentric). Alternate. Strengthens Achilles and calf for ankle stability.",eq:"Step edge optional",yt:"GXBov4h7jJc",anim:"calfRaise",animClass:"anim-calf"}
+];
+
+const TOTAL=exercises.reduce((s,e)=>s+e.dur,0);
+let ci=-1,tmr=null,rem=0,paused=false,done=new Set(),elapsed=0;
+let timerMediaMode='anim'; // 'anim' or 'vid'
+
+function fmt(s){const m=Math.floor(s/60);return m+':'+(s%60).toString().padStart(2,'0')}
+
+function render(){
+  const c=document.getElementById('exContainer');
+  let h='',cs='';
+  exercises.forEach((e,i)=>{
+    if(e.section!==cs){
+      cs=e.section;
+      const sd=exercises.filter(x=>x.section===cs).reduce((s,x)=>s+x.dur,0);
+      h+=`<div class="sec"><span class="sec-dot" style="background:${e.sc}"></span><span style="color:${e.sc}">${e.section}</span><span class="sec-line"></span><span class="sec-t">${fmt(sd)}</span></div>`;
+    }
+    h+=`<div class="card" id="c${i}" onclick="toggle(${i})">
+      <div class="card-hd">
+        <div class="cnum"><span>${e.n}</span></div>
+        <div class="card-bd">
+          <div class="card-tr"><div class="cname">${e.name}</div><div class="ctime t-${e.cc}">${fmt(e.dur)}</div></div>
+          <div class="cmeta">${e.meta}</div>
+          <div class="creps r-${e.cc}">${e.reps}</div>
+        </div>
+      </div>
+      <div class="card-ex" id="ex${i}">
+        <div class="card-inner">
+          <div class="toggle-row">
+            <button class="toggle-btn sel" id="abtn${i}" onclick="event.stopPropagation();showCardAnim(${i})">🎬 Animation</button>
+            <button class="toggle-btn" id="vbtn${i}" onclick="event.stopPropagation();showCardVid(${i})">▶ YouTube</button>
+          </div>
+          <div class="anim-wrap show ${e.animClass}" id="aw${i}">${ANIMS[e.anim]}</div>
+          <div class="vid-wrap" id="vw${i}"><div id="vp${i}" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#555;font-size:13px;cursor:pointer" onclick="event.stopPropagation();loadV(${i})"><div style="text-align:center"><div style="font-size:36px;margin-bottom:4px">▶</div><div>Tap to load video</div></div></div></div>
+          <div class="detail-text">${e.detail}</div>
+          ${e.eq?`<span class="equip">🏋️ ${e.eq}</span>`:''}
+        </div>
+      </div>
+    </div>`;
+  });
+  c.innerHTML=h;
+}
+
+function showCardAnim(i){
+  document.getElementById('aw'+i).classList.add('show');
+  document.getElementById('vw'+i).classList.remove('show');
+  document.getElementById('abtn'+i).classList.add('sel');
+  document.getElementById('vbtn'+i).classList.remove('sel');
+}
+function showCardVid(i){
+  document.getElementById('aw'+i).classList.remove('show');
+  document.getElementById('vw'+i).classList.add('show');
+  document.getElementById('abtn'+i).classList.remove('sel');
+  document.getElementById('vbtn'+i).classList.add('sel');
+  loadV(i);
+}
+function loadV(i){
+  const p=document.getElementById('vp'+i);
+  if(p&&exercises[i].yt){
+    p.outerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${exercises[i].yt}?rel=0&modestbranding=1&playsinline=1" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe>`;
+  }
+}
+
+function toggle(i){
+  const c=document.getElementById('c'+i);
+  const was=c.classList.contains('expanded');
+  document.querySelectorAll('.card.expanded').forEach(x=>x.classList.remove('expanded'));
+  if(!was){c.classList.add('expanded');setTimeout(()=>c.scrollIntoView({behavior:'smooth',block:'nearest'}),100)}
+}
+
+function updProg(){
+  const p=Math.min(elapsed/TOTAL*100,100);
+  document.getElementById('pFill').style.width=p+'%';
+  document.getElementById('pTime').textContent=fmt(elapsed)+' / '+fmt(TOTAL);
+  document.getElementById('pText').textContent=ci>=0?`Exercise ${ci+1} of ${exercises.length}`:'Tap any exercise to expand';
+}
+
+// ═══ ROUTINE ═══
+function startRoutine(){ci=0;elapsed=0;done.clear();document.querySelectorAll('.card').forEach(c=>c.classList.remove('done','active','expanded'));showTrans(0)}
+
+function showTrans(i){
+  if(i>=exercises.length){finish();return}
+  const e=exercises[i];
+  document.getElementById('trName').textContent=e.name;
+  document.getElementById('trName').style.color=e.sc;
+  document.getElementById('trReps').textContent=e.reps;
+  document.getElementById('transOv').classList.add('show');
+  let cd=3;
+  document.getElementById('trCd').textContent=cd;
+  const iv=setInterval(()=>{
+    cd--;
+    if(cd<=0){clearInterval(iv);document.getElementById('transOv').classList.remove('show');showTimerEx(i)}
+    else document.getElementById('trCd').textContent=cd;
+  },1000);
+}
+
+function setTimerMedia(mode){
+  timerMediaMode=mode;
+  document.getElementById('tBtnAnim').classList.toggle('sel',mode==='anim');
+  document.getElementById('tBtnVid').classList.toggle('sel',mode==='vid');
+  document.getElementById('tAnim').classList.toggle('show',mode==='anim');
+  document.getElementById('tVid').classList.toggle('show',mode==='vid');
+  if(mode==='vid'&&ci>=0){
+    const e=exercises[ci];
+    const vd=document.getElementById('tVid');
+    if(e.yt&&!vd.querySelector('iframe')){
+      vd.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${e.yt}?rel=0&modestbranding=1&playsinline=1" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe>`;
+    }
+  }
+}
+
+function showTimerEx(i){
+  if(i>=exercises.length){finish();return}
+  ci=i;const e=exercises[i];rem=e.dur;paused=false;
+  document.querySelectorAll('.card').forEach(c=>c.classList.remove('active'));
+  document.getElementById('c'+i).classList.add('active');
+  
+  const ov=document.getElementById('timerOv');ov.classList.add('show');
+  document.getElementById('tCnt').textContent=(i+1)+'/'+exercises.length;
+  document.getElementById('tSec').textContent=e.section;
+  document.getElementById('tName').textContent=e.name;
+  document.getElementById('tReps').textContent=e.reps;
+  document.getElementById('tInst').textContent=e.detail;
+  document.getElementById('tPlayBtn').textContent='⏸ Pause';
+  
+  // Load animation in timer
+  document.getElementById('tAnim').innerHTML=ANIMS[e.anim];
+  document.getElementById('tAnim').className='t-anim '+e.animClass+(timerMediaMode==='anim'?' show':'');
+  
+  // Load video in timer
+  const vd=document.getElementById('tVid');
+  vd.className='t-vid'+(timerMediaMode==='vid'?' show':'');
+  if(e.yt){
+    vd.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${e.yt}?rel=0&modestbranding=1&playsinline=1" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe>`;
+  } else {
+    vd.innerHTML='<div style="padding:20px;color:#555;text-align:center">No video available</div>';
+  }
+  
+  updTimerDisp();
+  startCD();
+}
+
+function startCD(){
+  clearInterval(tmr);
+  tmr=setInterval(()=>{
+    if(!paused){
+      rem--;elapsed++;updTimerDisp();updProg();
+      if(rem<=3&&rem>0){try{const c=new(window.AudioContext||window.webkitAudioContext)();const o=c.createOscillator();const g=c.createGain();o.connect(g);g.connect(c.destination);o.frequency.value=rem===1?880:660;g.gain.value=.07;o.start();o.stop(c.currentTime+.1)}catch(e){}}
+      if(rem<=0){clearInterval(tmr);compEx(ci);if(ci+1<exercises.length){document.getElementById('timerOv').classList.remove('show');setTimeout(()=>showTrans(ci+1),200)}else finish()}
+    }
+  },1000);
+}
+
+function updTimerDisp(){
+  const e=exercises[ci],t=e.dur,el=t-rem,p=el/t;
+  document.getElementById('tTimeNum').textContent=fmt(rem);
+  document.getElementById('tArc').style.strokeDasharray=CIRC;
+  document.getElementById('tArc').style.strokeDashoffset=CIRC*(1-p);
+}
+
+function toggleTimer(){paused=!paused;document.getElementById('tPlayBtn').textContent=paused?'▶ Resume':'⏸ Pause'}
+function skipEx(){clearInterval(tmr);elapsed+=rem;compEx(ci);document.getElementById('timerOv').classList.remove('show');setTimeout(()=>showTrans(ci+1),200)}
+function nextEx(){skipEx()}
+function closeTimer(){clearInterval(tmr);document.getElementById('timerOv').classList.remove('show');document.querySelectorAll('.card').forEach(c=>c.classList.remove('active'));document.getElementById('startBtn').textContent='▶  Resume';document.getElementById('startBtn').onclick=()=>showTrans(ci)}
+function compEx(i){done.add(i);const c=document.getElementById('c'+i);c.classList.remove('active');c.classList.add('done');ci=i+1}
+function finish(){
+  clearInterval(tmr);document.getElementById('timerOv').classList.remove('show');document.getElementById('transOv').classList.remove('show');
+  elapsed=TOTAL;updProg();
+  document.getElementById('pText').textContent='🎉 Routine Complete!';
+  document.getElementById('startBtn').textContent='🔄  Restart Routine';
+  document.getElementById('startBtn').onclick=startRoutine;
+  try{const c=new(window.AudioContext||window.webkitAudioContext)();[523,659,784].forEach((f,i)=>{const o=c.createOscillator();const g=c.createGain();o.connect(g);g.connect(c.destination);o.frequency.value=f;g.gain.value=.06;o.start(c.currentTime+i*.15);o.stop(c.currentTime+i*.15+.2)})}catch(e){}
+}
+
+render();updProg();
+</script>
+</body>
+</html>
