@@ -2,6 +2,12 @@ require "bundler/gem_tasks"
 require "jekyll"
 require "listen"
 
+desc "Fetch title/image/excerpt for external articles in _data/external_articles.yml. Pass -- --force to re-fetch all."
+task :fetch_articles do
+  script = File.expand_path("scripts/fetch_articles.rb", __dir__)
+  ruby script, *ARGV.drop_while { |a| a != "--" }.drop(1)
+end
+
 def listen_ignore_paths(base, options)
   [
     /_config\.ya?ml/,

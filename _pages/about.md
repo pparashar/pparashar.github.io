@@ -14,13 +14,7 @@ A computer engineer fascinated about computer science, technology and startups.
 
 I blog here on my experience on a particular technology, review of a technology or trend and on my experiences with philanthropy & entrepreneurship.
 
-[More about me here](http://www.prashantparashar.com/speaker-profile "Speaker Profile").
-
-[Click here to Contact me.](http://www.prashantparashar.com/contact "Contact")
-
-&nbsp;
-
-&nbsp;
+[More about me here](/speaker-profile "Speaker Profile") &middot; [Contact me](/contact "Contact").
 
 \___\___\___\___\___\___\___\___\___\___\___\___\___\___\___\___\___\___\___\___\___\___\___\___\___\___\___\___\___\_____
 

@@ -1,0 +1,72 @@
+{% comment %}
+  Renders the curated list of external mentions (articles / videos / talks) about
+  the site owner. Data lives in _data/external_articles.yml; title/image/excerpt/
+  date are filled at build time by scripts/fetch_articles.rb (rake fetch_articles).
+  Uses its own CSS grid (not the theme's float-based grid) so cards of uneven
+  height don't overlap on desktop. Renders nothing when the data file is empty.
+{% endcomment %}
+{% if site.data.external_articles and site.data.external_articles.size > 0 %}
+<style>
+  .mentions__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 1.5em;
+    margin: 1em 0 2em;
+  }
+  .mentions__card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #e8e8e8;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #fff;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+  .mentions__card:hover { box-shadow: 0 6px 18px rgba(0,0,0,0.12); transform: translateY(-2px); }
+  .mentions__thumb { position: relative; display: block; aspect-ratio: 16 / 9; background: #f2f2f2; overflow: hidden; }
+  .mentions__thumb img { width: 100%; height: 100%; object-fit: cover; display: block; margin: 0; }
+  .mentions__play {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 54px; height: 38px; border-radius: 10px;
+    background: rgba(0,0,0,0.65); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; transition: background 0.2s ease;
+  }
+  .mentions__thumb:hover .mentions__play { background: #ff0000; }
+  .mentions__body { padding: 0.85em 1em 1em; display: flex; flex-direction: column; flex: 1; }
+  .mentions__title { font-size: 0.95rem; line-height: 1.35; margin: 0 0 0.4em; }
+  .mentions__meta { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.03em; color: #6f777d; margin: 0 0 0.5em; }
+  .mentions__meta .fa-youtube { color: #ff0000; }
+  .mentions__excerpt { font-size: 0.82rem; line-height: 1.45; color: #5b6166; margin: 0; }
+</style>
+
+<h3 class="archive__subtitle">Mentions on the Web</h3>
+<div class="mentions__grid">
+  {% for item in site.data.external_articles %}
+    {% assign title = item.title | default: item.url %}
+    {% assign is_youtube = false %}
+    {% if item.url contains "youtube.com" or item.url contains "youtu.be" %}{% assign is_youtube = true %}{% endif %}
+    <article class="mentions__card" itemscope itemtype="https://schema.org/CreativeWork">
+      {% if item.image %}
+        <a class="mentions__thumb" href="{{ item.url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ title | escape }}">
+          <img src="{{ item.image }}" alt="{{ title | escape }}" loading="lazy">
+          {% if is_youtube or item.type == "video" %}<span class="mentions__play"><i class="fas fa-play" aria-hidden="true"></i></span>{% endif %}
+        </a>
+      {% endif %}
+      <div class="mentions__body">
+        <h2 class="mentions__title" itemprop="headline">
+          <a href="{{ item.url }}" target="_blank" rel="noopener noreferrer">{{ title }}</a>
+        </h2>
+        {% if item.source or item.date %}
+          <p class="mentions__meta">
+            {% if is_youtube %}<i class="fab fa-youtube" aria-hidden="true"></i>{% else %}<i class="fas fa-fw fa-newspaper" aria-hidden="true"></i>{% endif %}
+            {% if item.source %}{{ item.source }}{% endif %}
+            {% if item.date %}&middot; {{ item.date | date: "%b %Y" }}{% endif %}
+          </p>
+        {% endif %}
+        {% if item.excerpt %}<p class="mentions__excerpt" itemprop="description">{{ item.excerpt | strip_html | truncate: 160 }}</p>{% endif %}
+      </div>
+    </article>
+  {% endfor %}
+</div>
+{% endif %}

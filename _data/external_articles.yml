@@ -1,0 +1,275 @@
+# Curated list of external articles / videos about Prashant Parashar.
+#
+# HOW TO ADD ONE:
+#   1. Add an entry below with just a `url:` (a SPECIFIC article or video page,
+#      e.g. a news article or a YouTube watch URL -- NOT a Google search page).
+#   2. Run:  bundle exec rake fetch_articles
+#      The script fills in title / image / excerpt / source / date from the
+#      page's metadata, then sorts entries newest-first and writes them back.
+#   3. Review the diff and commit.
+#
+# Any field you set by hand is treated as a manual override and is never
+# overwritten by the fetcher. To force a re-fetch of everything:
+#   bundle exec rake fetch_articles -- --force
+#
+# Entry shape:
+#   - url:       "https://www.example.com/some-article"  # required
+#     title:     "..."        # auto-filled (og:title) -- override to taste
+#     image:     "..."        # auto-filled (og:image)
+#     excerpt:   "..."        # auto-filled (og:description)
+#     source:    "..."        # auto-filled (og:site_name) -- publication/channel
+#     date:      "2023-05-01"  # auto-filled when detectable; shown on the card
+#     sort_date: "2023-05-01"  # optional: overrides `date` for ORDERING only
+#     type:      article       # optional: article | video
+
+# Add your entries below this line:
+
+
+- url: https://www.youtube.com/watch?v=7FOn_0Aqe4Q
+  title: 'From Models to Agents: The Rise of Autonomous AI | Panel Discussion | World
+    AI Summit 2025'
+  image: https://i.ytimg.com/vi/7FOn_0Aqe4Q/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGCsgOih_MA8=&rs=AOn4CLD5e3AyeeRPDRT9Kb52Kj684NyAeA
+  excerpt: 'Industry experts and business leaders came together for an engaging panel
+    discussion on “From Models to Agents: The Rise of Autonomous AI in Business Operati...'
+  source: YouTube
+  date: '2026-04-15'
+  fetched: true
+- url: https://enterpriseai.economictimes.indiatimes.com/news/industry/transforming-ai-in-india-from-experimentation-to-accountability-and-measurable-outcomes/125135604
+  title: How India Inc is wiring its enterprises for accountable, ROI-driven AI
+  image: https://etimg.etb2bimg.com/thumb/msid-125135604,imgsize-120636,width-1200,height=627,overlay-etenterpriseai,resizemode-75/news/industry/transforming-ai-in-india-from-experimentation-to-accountability-and-measurable-outcomes.jpg
+  excerpt: 'ET Enterprise AI&rsquo;s Making AI Work Summit 2025: Explore how India''s
+    enterprises are shifting towards accountable and ROI-driven AI implementations
+    to enhance value, governance, and explainability in their operations, as discussed
+    at the ET Enterprise AI Summit 2025.'
+  source: ETEnterpriseai.com
+  date: '2025-11-06'
+  fetched: true
+- url: https://incbusiness.in/startups/beyond-the-hype-startup-foundry-summit-2025-spotlights-indias-ai-future/
+  title: 'Beyond the hype: Startup Foundry Summit 2025 spotlights India’s AI future
+    - Inc Business'
+  image: https://incbusiness.in/wp-content/uploads/2025/10/Googlecloudstartupfoundryeventcollage-1759732143914.webp
+  excerpt: What will it take for India to build AI for the world? How can startups
+    balance AI-native innovation with AI-enabled growth, and what role should regulation
+    and ethics play? Questions like these and more found answers at the Google Cloud
+    Startup Foundry Summit on September 19, 2025, at ITC, Gardenia, Bengaluru, held
+    under the banner &lsquo;Where India’s AI Ambition Meets Opportunity’. The event
+    showcased India’s advancements in AI- through deep research, strong startups,
+    ethical frameworks, and global ambitions. Engineering the future with AIAnand
+    Rangarajan, Vice President of Engineering at Google DeepMind, began by painting
+    a picture of AI not just as a tool, but as a force unlocking new frontiers. Rangarajan
+    spoke about AlphaFold, the system that has predicted over 200 million protein
+    structures. &ldquo;Before AlphaFold, a PhD student could spend years on one protein.
+    Today, we can map millions,&rdquo; he said, adding that this could lead to breakthroughs
+    like enzymes that break dow..
+  source: Inc Business
+  date: '2025-10-08'
+  fetched: true
+- url: https://www.prnewswire.com/in/news-releases/indias-enterprise-leaders-converge-to-shape-ais-business-future-at-making-ai-work-2025-302570481.html
+  title: India's Enterprise Leaders Converge to Shape AI's Business Future at 'Making
+    AI Work 2025'
+  excerpt: "/PRNewswire/ -- The Economic Times' vertical ET Enterprise AI is hosting
+    its flagship summit, Making AI Work 2025, on October 30, 2025 at Conrad Hotel,..."
+  source: prnewswire.com
+  date: '2025-09-30'
+  fetched: true
+- url: https://www.youtube.com/watch?v=AZFinhyWQXo
+  title: 'Converge 2025 | Walmart: Transforming global supply chain with cutting-edge
+    technology'
+  image: https://i.ytimg.com/vi/AZFinhyWQXo/maxresdefault.jpg
+  excerpt: In this session, Walmart Converge speakers Prashant Parashar, SVP & Head
+    of Technology, Delhivery and Rajiv Bhuta, SVP, Walmart Global Tech, explore how
+    auto...
+  source: YouTube
+  date: '2025-09-03'
+  fetched: true
+- url: https://www.linkedin.com/feed/update/urn:li:activity:7401522986304118784/
+  title: Cafe Cursor comes to Bengaluru (cameo) | Spacekayak
+  sort_date: '2025-09-02'
+  image: https://dms.licdn.com/playlist/vid/v2/D5605AQF6TsrfT3jw5A/thumbnail-with-play-button-overlay-high/B56Zrd96sYLcDQ-/0/1764660588542?e=2147483647&v=beta&t=z4WCaR24b-wmfeCOMjteeWNntNt-68cCqiLmk4w6VfY
+  excerpt: "We’re excited to bring Cafe Cursor to Bengaluru this 5th December at Sanctuary!\n\nThis
+    gathering is for builders, founders, tinkerers, and anyone curious about what’s
+    being created with Cursor today.\n\nJoin us, connect with fellow creators, and
+    spend an inspiring evening with Mohammed Sanjeed and our amazing baristas Kunal
+    Savita and Mehul Ved\n\nShoutout to Prashant Parashar for a fun cameo in the video!\n\nSee
+    you there, Bengaluru ☕\U0001F680"
+  source: LinkedIn
+  date: '2025-12-02'
+  fetched: true
+- url: https://www.expresscomputer.in/videos/tech-senate/panel-reinventing-business-models-with-emerging-technologies-real-world-use-cases-of-innovation-impact-11-jul-2025-jpr/126928/
+  title: 'Panel Discussion: Reinventing Business Models with Emerging Technologies:
+    Real-World Use Cases of Innovation & Impact - Express Computer'
+  image: https://cdn1.expresscomputer.in/wp-content/uploads/2025/08/08124502/EC_TechSenate_July_2025_D1_08_PD_Reinventing_750.jpg
+  excerpt: Technology Senate 2025 | Day 1 | 11th July 2025 | Jaipur
+  source: Express Computer
+  date: '2025-08-08'
+  fetched: true
+- url: https://www.junipergreenenergy.com/board-of-directors/
+  title: Board of Directors - Juniper
+  # Manual override: the board-of-directors og:image 404s, so use the about-us
+  # banner instead (the card CSS resizes/crops it via object-fit: cover).
+  image: https://www.junipergreenenergy.com/images/about-us-banner.webp
+  source: Juniper
+  date: '2025-07-28'
+  fetched: true
+- url: https://www.techcircle.in/2025/04/28/ai-automation-and-data-intelligence-drive-our-focus-this-year-delhivery-s-parashar
+  title: 'AI, automation, and data intelligence drive our focus this year: Delhivery’s
+    Parashar'
+  image: https://assets.techcircle.in/uploads/article-image/2025/04/images/36290-20250428-120532-0000.png
+  excerpt: In the rapidly evolving e-commerce landscape, effective logistics is crucial
+    for customer satisfaction &ndash; driving faster delivery, better inventory...
+  source: Techcircle
+  date: '2025-04-28'
+  fetched: true
+- url: https://www.youtube.com/watch?v=1ZVErDhSOXs
+  title: 'FTX25 | Engineering for Resilience: Building Systems That Never Fail'
+  image: https://i.ytimg.com/vi/1ZVErDhSOXs/maxresdefault.jpg
+  excerpt: In an era where downtime is not an option, engineering resilience is critical
+    for businesses operating in quick commerce, logistics, ad-tech, and high-volume...
+  source: YouTube
+  date: '2025-03-05'
+  fetched: true
+- url: https://www.linkedin.com/posts/razorpay_razorpay-ftx25-activity-7300129938882367488-PJdb/
+  title: "#razorpay #ftx25 | Razorpay"
+  image: https://media.licdn.com/dms/image/v2/D5622AQGf2h_ai0TW_Q/feedshare-shrink_800/B56ZU9Bu9ZHsAg-/0/1740485633771?e=2147483647&v=beta&t=St3_9Lp7bWzTpVvx2hJd5ZxqHIWRCWS7DU8UYY3f7zM
+  excerpt: "“Engineering systems to anticipate failures is just as important as building
+    them to succeed.”\n\nAt FTX25, Varun Achar (Razorpay) led a power-packed panel
+    discussion with Madhusudhan Rao (Swiggy), Prashant Parashar (Delhivery), Vivek
+    Y S(InMobi), and Amit Garde (Dream11) on building engineering systems that never
+    fail \U0001F680 \n\nFrom handling traffic surges during IPL to real-time logistics
+    in quick commerce, the panelists emphasised automation, proactive failure detection,
+    and dynamic load balancing as key to resilience \U0001F525\n\n#Razorpay #FTX25"
+  source: LinkedIn
+  date: '2025-02-25'
+  fetched: true
+- url: https://www.siliconindia.com/news/general/digital-transformation-summit-2025-a-groundbreaking-event-that-celebrated-innovation-and-tech-leadership-nid-234473-cid-1.html
+  date: '2025-02-18'
+  title: 'Digital Transformation Summit 2025: A Groundbreaking Event that Celebrated
+    Innovation and Tech Leadership'
+  image: https://www.siliconindia.com/news/newsimages/s0ADPGV8.jpg
+  excerpt: 'Digital Transformation Summit 2025: A Groundbreaking Event that Celebrated
+    Innovation and Tech Leadership -  The Digital Transformation Summit 2025, hosted
+    by Exito Media Concepts, wrapped up successfully, bringing...'
+  source: siliconindia
+  fetched: true
+- url: https://www.youtube.com/watch?v=bMCSzjRgcvU
+  title: Forbes India Presents 'The Data Circle' In Association With Snowflake | BLR
+    Round-Table Conference
+  image: https://i.ytimg.com/vi/bMCSzjRgcvU/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGEkgUChyMA8=&rs=AOn4CLCoN475INv8IAg8c9IrMn73mGOCpw
+  excerpt: 'As part of Forbes India presents "The Data Circle: India''s Changemakers,"
+    join us for a thought-provoking panel discussion on "Navigating the economy with
+    da...'
+  source: YouTube
+  date: '2024-04-04'
+  fetched: true
+- url: https://geospatialworld.net/news/geospatial-artha-awards-contributions/
+  title: Geospatial Artha Awards Recognize Outstanding Contributions
+  image: https://geospatialmedia.s3.amazonaws.com/wp-content/uploads/2024/01/IMG_8546-scaled.jpg
+  excerpt: The Geospatial Artha Summit witnessed the grand celebration of the Geospatial
+    Artha Business Leadership Awards
+  source: Geospatial World
+  date: '2024-01-30'
+  fetched: true
+- url: https://geospatialworld.net/blogs/geospatial-intelligence-last-mile-delivery/
+  title: Geospatial Intelligence to Optimize Last-Mile Delivery
+  image: https://geospatialmedia.s3.amazonaws.com/wp-content/uploads/2024/01/Image-5-e1706605585476.jpg
+  excerpt: Through geospatial, most inaccuracies of last-mile are resolved, providing
+    enhanced value for the entire supply chain
+  source: Geospatial World
+  date: '2024-01-29'
+  fetched: true
+- url: https://open.spotify.com/episode/6nW5PmbSILV2HXbxLzLSEC
+  title: "#09 | The Future of Tech and A Masterclass on career as a CTO - ft. Prashant
+    Parashar- past CTO/HoE at Ola, Zomato, Snapdeal"
+  image: https://image-cdn-fa.spotifycdn.com/image/ab6772ab00001692dc70995ef5f6d9cedbb05e0a
+  excerpt: 'GoVenture: A Business Podcast · Episode'
+  source: Spotify
+  date: '2023-04-20'
+  fetched: true
+- url: https://yourstory.com/2021/03/future-of-work-snapdeal-prashant-parashar-startup-scaling-tech
+  title: 'Future of Work: Snapdeal’s Prashant Parashar on what startups must keep
+    in mind when building tech for scale'
+  image: https://images.yourstory.com/cs/2/220356402d6d11e9aa979329348d4c3e/FOW2-1614941595504.png
+  excerpt: At Future of Work 2021, Snapdeal tech chief Prashant Parashar reveals what
+    startups must focus on while scaling for the big billions and why the presence
+    of solid tech architecture is critical.
+  source: yourstory.com
+  date: '2021-03-05'
+  fetched: true
+- url: https://www.youtube.com/watch?v=ZvuMN2a0Iuo
+  title: The Tech Underneath Snapdeal | CTOtalk | Prashant Parashar
+  image: https://i.ytimg.com/vi/ZvuMN2a0Iuo/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGGUgQihDMA8=&rs=AOn4CLAxm2ML5Cerc-6a2tx4Up7GXRMkiA
+  excerpt: CTOtalk with Prashant Parashar, CTO Snapdeal Snapdeal is an Indian e-commerce
+    company based in New Delhi, India.CTOtalk is a monthly series for aspiring tech...
+  source: YouTube
+  date: '2020-12-07'
+  fetched: true
+- url: https://tech.hindustantimes.com/tech/news/snapdeal-grosses-about-rs-500-cr-in-annual-savings-from-cloud-service-since-2016-71599502234514.html
+  title: Snapdeal grosses about  ₹500 cr in annual savings from cloud service since
+    2016
+  image: https://images.hindustantimes.com/tech/img/2020/09/07/1600x900/gurugram-photo-headquarters-employee-cleans-logo-snapdeal_15f5c104-e905-11e9-a1fd-918c38724d55_1599502261021.jpg
+  excerpt: The online marketplace had invested about  ₹125 crore four years ago to
+    set up cloud services.
+  source: HT Tech
+  date: '2020-09-08'
+  fetched: true
+- url: https://retail.economictimes.indiatimes.com/news/industry/retailtech-summit-top-industry-leaders-to-discuss-technologys-role-in-retail-in-the-post-covid-19-era/76615843
+  title: 'RetailTech Summit: Top industry leaders to discuss technology''s role in
+    retail in the post-COVID-19 era'
+  image: https://etimg.etb2bimg.com/thumb/msid-76615843,imgsize-284935,width-1200,height=627,overlay-etretail,resizemode-75/industry/retailtech-summit-top-industry-leaders-to-discuss-technologys-role-in-retail-in-the-post-covid-19-era.jpg
+  excerpt: 'Retail Industry: The speakers will talk about the new technologies that
+    can be used in the store to create a safer environment for the consumers, who
+    are shying away from stepping out of their homes.'
+  source: ETRetail.com
+  date: '2020-06-25'
+  fetched: true
+- url: https://informatics.nic.in/news/1213
+  date: '2020-01-23'
+  title: NIC hosts second edition of Technology Conclave in New Delhi
+  image: https://informatics.nic.in/uploads/images/ea9a83cd_techconclave_inauguration.png
+  excerpt: Spearheading deliberations on the application of ICT for enhanced e-Governance,
+    NIC hosted the second edition of Technology Conclave at Pravasi Bhartiya Kendra,
+    Chanakyapuri, New Delhi from 21st to 22nd January 2020. TechConclave...
+  source: informatics.nic.in
+  fetched: true
+- url: https://retail.economictimes.indiatimes.com/retail-tech-summit2020
+  date: '2020-01-01'
+  title: RetailTech | ET Retail
+  image: https://img.etb2bimg.com/files/cplogo_seo-1591359035.jpg
+  excerpt: Discuss how technology can help retailers recover and reinforce their businesses.
+  source: ETRetail.com
+  fetched: true
+- url: https://www.youtube.com/watch?v=vXC4cxz3zAk
+  title: C level of Title for a Product Leader-the How, What and Why? - CXO Panel|
+    DELHI2019
+  image: https://i.ytimg.com/vi/vXC4cxz3zAk/maxresdefault.jpg
+  excerpt: Enjoy the videos and music that you love, upload original content and share
+    it all with friends, family and the world on YouTube.
+  source: YouTube
+  date: '2019-09-12'
+  fetched: true
+- url: https://medium.com/@casualwalker/snapdeal-architecture-head-ex-cto-zomato-prashant-parashar-at-cto-talk-meetup-photos-and-3fef13767afd
+  title: Snapdeal, Architecture Head & Ex-CTO Zomato — Prashant Parashar at CTO Talk — meetup
+    photos and…
+  image: https://miro.medium.com/v2/resize:fit:1200/1*yPdjcqItr5ayiW3hdRuhEQ.jpeg
+  excerpt: Originally published and read more at http://CasualWalker.com
+  source: Medium
+  date: '2019-06-14'
+  fetched: true
+- url: https://culture.kissflow.com/rapid-product-experimenting-at-scale-the-tech-underneath-snapdeal-d623c5a58029
+  title: 'Rapid Product Experimenting at Scale: The Tech Underneath Snapdeal'
+  image: https://miro.medium.com/v2/da:true/resize:fit:954/0*yPQxrk4oWwWiwSgB
+  excerpt: Snapdeal’s Head of Architecture and Ex-CTO of Zomato, Prashant Parashar,
+    spoke at the fourth edition of CTOTalk by OrangeScape on 22nd…
+  source: Medium
+  date: '2018-09-28'
+  fetched: true
+- url: https://yourstory.com/2018/01/techie-tuesdays-prashant-parashar-zomato
+  title: He dreamt, so he could - how Prashant Parashar went from a small village
+    in UP to lead tech at Zomato
+  image: https://images.yourstory.com/cs/wordpress/2018/01/Prashant-Parashar-Zomato-Techie-Tuesdays.png
+  excerpt: Prashant Parashar’s story is nothing short of an inspiration for millions
+    of young Indians. Staring from a Hindi-medium school in Uttar Pradesh, Prashant
+    has certainly come a long way to become the CT...
+  source: yourstory.com
+  date: '2018-01-23'
+  fetched: true

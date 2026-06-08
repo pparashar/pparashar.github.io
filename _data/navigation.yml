@@ -5,5 +5,7 @@ main:
     url: /awesome-resources-useful-bookmarks
   - title: "Featured"
     url: "/category/&#35;featured"
+  - title: "About"
+    url: /about/
 #  - title: "Contact"
 #    url: /contact/
