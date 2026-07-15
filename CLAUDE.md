@@ -127,7 +127,7 @@ auto-metadata and need manual `title`/`image`/`date`, or should be dropped. Wiki
 - **Theme skin**: `minimal_mistakes_skin: "mint"`.
 - **Comments**: Disqus (`shortname: prashantparashar`).
 - **Search**: enabled, full-content, lunr provider.
-- **Analytics**: Google (`UA-572757-11`). **Pagination**: disabled (see *Home page & Mentions* above); all posts are listed on `/year-archive/`.
+- **Analytics**: Google Analytics 4 via gtag.js (`G-9KHHJNDTD9`), `provider: "google-gtag"`. The theme fork predates GA4, so the `google-gtag` provider include was added locally (upstream Minimal Mistakes gained the same provider in a later version). Analytics only renders when `jekyll.environment == 'production'` — GitHub Pages sets this, local `jekyll serve` does not. **Pagination**: disabled (see *Home page & Mentions* above); all posts are listed on `/year-archive/`.
 - **Archives**: liquid-based year (`/year-archive/`, the "Archived Posts" page), category (`/category/`) and tag (`/tag/`) archives — keep `breadcrumbs` links valid.
 - **Plugins** (GitHub Pages-safe, whitelisted): `jekyll-sitemap`, `jekyll-gist`, `jekyll-feed`, `jemoji`.
 - `timezone: Asia/Calcutta`.
