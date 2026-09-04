@@ -25,7 +25,14 @@
 # Add your entries below this line:
 
 
-
+- url: https://www.youtube.com/watch?v=c8BHnNAz4SY
+  title: Introducing Profound, Your AI Rep
+  image: https://i.ytimg.com/vi/c8BHnNAz4SY/maxresdefault.jpg
+  excerpt: Actors have agents. Athletes have managers. Now professionals have Profound.Each
+    professional gets their own AI rep. It starts with a 30-minute conversation....
+  source: YouTube
+  date: '2026-08-04'
+  fetched: true
 - url: https://www.moneycontrol.com/news/business/startup/former-swiggy-zomato-executives-launch-ai-networking-startup-profound-raise-1-5-million-13992864.html
   title: Former Swiggy, Zomato executives launch AI networking startup Profound, raise
     $1.5 million
